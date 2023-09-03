@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{matricula.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{matricula.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/matriculas/add}" th:text="#{matricula.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${matriculas.empty}" th:text="#{matricula.list.empty}" />
+            <div th:if="${!matriculas.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{matricula.id.label}" scope="col" />
+                            <th th:text="#{matricula.ano.label}" scope="col" />
+                            <th th:text="#{matricula.semestre.label}" scope="col" />
+                            <th th:text="#{matricula.aluno.label}" scope="col" />
+                            <th th:text="#{matricula.disciplina.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="matricula : ${matriculas}">
+                            <td th:text="${matricula.id}" />
+                            <td th:text="${matricula.ano}" />
+                            <td th:text="${matricula.semestre}" />
+                            <td th:text="${matricula.aluno}" />
+                            <td th:text="${matricula.disciplina}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/matriculas/edit/{id}(id=${matricula.id})}" th:text="#{matricula.list.edit}" class="btn btn-sm btn-info" />
+                                    <form th:action="@{/matriculas/delete/{id}(id=${matricula.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button th:text="#{matricula.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

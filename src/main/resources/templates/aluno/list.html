@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{aluno.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{aluno.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/alunos/add}" th:text="#{aluno.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${alunos.empty}" th:text="#{aluno.list.empty}" />
+            <div th:if="${!alunos.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{aluno.id.label}" scope="col" />
+                            <th th:text="#{aluno.nome.label}" scope="col" />
+                            <th th:text="#{aluno.email.label}" scope="col" />
+                            <th th:text="#{aluno.curso.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="aluno : ${alunos}">
+                            <td th:text="${aluno.id}" />
+                            <td th:text="${aluno.nome}" />
+                            <td th:text="${aluno.email}" />
+                            <td th:text="${aluno.curso}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/alunos/edit/{id}(id=${aluno.id})}" th:text="#{aluno.list.edit}" class="btn btn-sm btn-info" />
+                                    <form th:action="@{/alunos/delete/{id}(id=${aluno.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button th:text="#{aluno.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title th:text="#{nota.list.headline}" />
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 th:text="#{nota.list.headline}" class="flex-grow-1" />
+                <div>
+                    <a th:href="@{/notas/add}" th:text="#{nota.list.createNew}" class="btn btn-primary ms-2" />
+                </div>
+            </div>
+            <div th:if="${notas.empty}" th:text="#{nota.list.empty}" />
+            <div th:if="${!notas.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th th:text="#{nota.id.label}" scope="col" />
+                            <th th:text="#{nota.valor.label}" scope="col" />
+                            <th th:text="#{nota.matricula.label}" scope="col" />
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="nota : ${notas}">
+                            <td th:text="${nota.id}" />
+                            <td th:text="${nota.valor}" />
+                            <td th:text="${nota.matricula}" />
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/notas/edit/{id}(id=${nota.id})}" th:text="#{nota.list.edit}" class="btn btn-sm btn-info" />
+                                    <form th:action="@{/notas/delete/{id}(id=${nota.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button th:text="#{nota.list.delete}" type="submit" class="btn btn-sm btn-danger" />
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
