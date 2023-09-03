@@ -1,2 +1,4 @@
-# projeto_springboot
-Projeto de um site gerenciador de cursos, disciplinas, alunos, matrículas e notas feito em Spring Boot pelo professor de Programação Web como forma de avaliar os alunos. O objetivo da avaliação era que os alunos corrigissem os erros do código, mantendo um código limpo e funcional. 
+# Como acessar o projeto?
+### 1º --> Dê "run" na classe NotasApplication.java
+### 2º --> Abra seu navegador e vá para "http://localhost:8080"
+### 3º --> Crie, remova e edite entidades testando as funcionalidades do código!
